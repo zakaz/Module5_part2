@@ -28,7 +28,7 @@ public class DraftFolderPage extends YaMailAbstract {
         draftButton.click();
         logger.info("Clicked on 'Черновики' button");
 //        wait.until(ExpectedConditions.titleIs("Черновики — Яндекс.Почта"));
-        return new CreateNewMailPage(driver, logger);
+        return new CreateNewMailPage(getDriver(), logger);
     }
 
     public boolean checkLetterExsistInDraft(LetterParams letterParams){
@@ -36,8 +36,8 @@ public class DraftFolderPage extends YaMailAbstract {
         subjectElement = By.xpath("//span[text()='" + letterParams.getSUBJECTFORLETTER() + "']");
         textElement = By.xpath("//span[text()='" +letterParams.getTEXTFORLETTER()+ "']");
 
-        if (driver.findElement(addressElement).isDisplayed() && driver.findElement(subjectElement).isDisplayed() &&
-                driver.findElement(textElement).isDisplayed()){
+        if (getDriver().findElement(addressElement).isDisplayed() && getDriver().findElement(subjectElement).isDisplayed() &&
+                getDriver().findElement(textElement).isDisplayed()){
             logger.info("Letter to '"+ letterParams.getADDRESS() +"', with subject '"+ letterParams.getSUBJECTFORLETTER() +
                     "' and with text '"+ letterParams.getTEXTFORLETTER() +"' is displayed in Draft Folder");
             return true;

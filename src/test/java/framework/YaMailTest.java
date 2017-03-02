@@ -1,6 +1,6 @@
 package framework;
 
-import framework.browser_capabilities.GetDriverCapabilities;
+import static framework.YaMailAbstract.getDriver;
 import framework.data.LetterParams;
 import framework.data.User;
 import framework.pages.*;
@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
+
 /**
  * Created by Zakir_Mustafin on 2/3/2017.
  */
@@ -23,25 +24,20 @@ public class YaMailTest {
 
     @BeforeClass(description = "Start browser")
     public void startBrowser() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\zakir_mustafin@epam.com\\AppData\\Local\\Google\\Chrome\\Application\\chromedriver.exe");
-        driver = framework.browser_capabilities.GetDriverCapabilities.getDriver();
+        driver = YaMailAbstract.getDriver();
 //        driver = new ChromeDriver();
         driver.get(START_URL);
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']")));
-
-        String expectedTitle = "Яндекс.Почта — бесплатная электронная почта";
-        String actualTitle = driver.getTitle();
-        Assert.assertEquals(actualTitle, expectedTitle);
-    }
-
-    @BeforeClass(dependsOnMethods = "startBrowser", description = "Add implicit wait and maximize window")
-    public void addImplicitly() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
+    @Test(description = "Check valid Title")
+    public void checkTitle(){
+        String expectedTitle = "Яндекс.Почта — бесплатная электронная почта";
+        String actualTitle =  driver.getTitle();
+        Assert.assertEquals(actualTitle, expectedTitle);
+    }
 
-    @Test(description = "Login to Mail.Yandex account")
+    @Test(dependsOnMethods = "checkTitle", description = "Login to Mail.Yandex account")
     public void loginToYaMail() {
         logger = Logger.getLogger("Test-1. Login to Mail.Yandex account");
 
@@ -106,7 +102,7 @@ public class YaMailTest {
 
     @AfterClass(description = "Stop Browser")
     public void stopBrowser() {
-//        driver.quit();
+        driver.quit();
     }
 
 }

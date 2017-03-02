@@ -40,7 +40,7 @@ public class InboxMailPage extends YaMailAbstract {
 //        Action dragAndDropSomeLetter = actions.dragAndDrop(draggable, droppable).build();
 //        dragAndDropSomeLetter.perform();
 
-        Actions builder = new Actions(driver);
+        Actions builder = new Actions(getDriver());
         Action dragAndDrop = builder.moveToElement(draggable)
                 .clickAndHold(draggable)
                 .moveToElement(droppable)
@@ -52,11 +52,11 @@ public class InboxMailPage extends YaMailAbstract {
         builder.contextClick(elementForContexClick).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).build().perform();
         Thread.sleep(5000);
 
-        highlightElement(driver, buttonCreateNewLetter);
+        highlightElement(getDriver(), buttonCreateNewLetter);
         buttonCreateNewLetter.click();
         logger.info("Clicked element Create new Letter '"+ buttonCreateNewLetter +"'");
 
-       return new CreateNewMailPage(driver, logger);
+       return new CreateNewMailPage(getDriver(), logger);
     }
 
 

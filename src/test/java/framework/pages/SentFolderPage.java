@@ -33,16 +33,16 @@ public class SentFolderPage extends YaMailAbstract {
     }
 
     public boolean goToSentFolderCheckTheLetterExsist(LetterParams letterParams){
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(getDriver(), 10);
         subjectElement = By.xpath("//span[contains(@title, '" +letterParams.getSUBJECTFORLETTER()+ "')]");
         sentButton.click();
         logger.info("Opened Sent Folder");
         wait.until(ExpectedConditions.titleIs("Отправленные — Яндекс.Почта"));
-        return driver.findElement(subjectElement).isDisplayed();
+        return getDriver().findElement(subjectElement).isDisplayed();
     }
 
     public void logOut(){
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(getDriver(), 10);
         clickOnUserImage.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("b-user-dropdown-content")));
         logger.info("Drop-down menu appered");

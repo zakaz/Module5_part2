@@ -45,7 +45,7 @@ public class CreateNewMailPage extends YaMailAbstract {
     }
 
     public CreateNewMailPage enterDetailsOfTheLetter(LetterParams letterParams){
-        JavascriptExecutor executor = ((JavascriptExecutor) driver);
+        JavascriptExecutor executor = ((JavascriptExecutor) getDriver());
 
         addressForSending.sendKeys(letterParams.getADDRESS());
         logger.info("address '"+ letterParams.getADDRESS() +"' added");
@@ -56,19 +56,19 @@ public class CreateNewMailPage extends YaMailAbstract {
 //        closeButton.click();
         executor.executeScript("arguments[0].click();", closeButton);
 
-        return new CreateNewMailPage(driver, logger);
+        return new CreateNewMailPage(getDriver(), logger);
     }
 
     public DraftFolderPage savingLetterToDraft(){
         saveButtonExsist.click();
         logger.info("Clicked on 'Сохранить' button");
-        return new DraftFolderPage(driver, logger);
+        return new DraftFolderPage(getDriver(), logger);
     }
 
     public SentFolderPage sendMail(LetterParams letterParams){
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(getDriver(), 10);
         subjectElement = By.xpath("//span[contains(@title, '" +letterParams.getSUBJECTFORLETTER()+ "')]");
-        driver.findElement(subjectElement).click();
+        getDriver().findElement(subjectElement).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Отправить']")));
         sendButton.click();
         logger.info("sent letter with subject '"+ letterParams.getSUBJECTFORLETTER() +"'");
@@ -76,12 +76,12 @@ public class CreateNewMailPage extends YaMailAbstract {
         clickDraftButton.click();
         wait.until(ExpectedConditions.titleIs("Черновики — Яндекс.Почта"));
         logger.info("returned to Draft Folder");
-        return new SentFolderPage(driver, logger);
+        return new SentFolderPage(getDriver(), logger);
     }
 
     public boolean checkThatSentLetterDisapearedFromDraft(){
         try {
-            return driver.findElement(subjectElement).isDisplayed();
+            return getDriver().findElement(subjectElement).isDisplayed();
         } catch (NullPointerException e){
             logger.info("Didn't find such subject in draft folder " + e);
             return false;
