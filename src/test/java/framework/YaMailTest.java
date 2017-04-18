@@ -28,7 +28,7 @@ public class YaMailTest {
 //        driver = new ChromeDriver();
         driver.get(START_URL);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
     }
     @Test(description = "Check valid Title")
     public void checkTitle(){
@@ -45,14 +45,16 @@ public class YaMailTest {
         new SignInPage(driver, logger).loginToYaMail(new User());
 
         // Verify the login procedure was correct
-        Assert.assertTrue(new InboxMailPage(driver, logger).loginIsCorrect(), "Looks you are NOT logged in correctly!");
+        InboxMailPage object = InboxMailPage.getInstance();
+        Assert.assertTrue(object.loginIsCorrect(), "Looks you are NOT logged in correctly!");
     }
 
     @Test(dependsOnMethods = "loginToYaMail", description = "Create new Letter")
     public void createNewLetter() throws InterruptedException {
         // Login via user-defined method
         logger = Logger.getLogger("Test-2. Create new Letter");
-        new InboxMailPage(driver, logger).createNewMail();
+        InboxMailPage object = InboxMailPage.getInstance();
+        object.createNewMail();
 
         // Verify the login procedure was correct
         Assert.assertTrue(new CreateNewMailPage(driver, logger).sendButtonExsist(), "Looks you are on the wrong Page!");

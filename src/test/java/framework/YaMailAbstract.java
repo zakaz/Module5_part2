@@ -1,14 +1,15 @@
 package framework;
 
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Set;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Set;
  */
 public abstract class YaMailAbstract {
     protected static WebDriver driver;
-    protected Logger logger;
+    protected static Logger logger;
     //    protected WebElement webElement;
 //    protected WebDriverWait wait;
 //    protected String subjectOfLetter = String.valueOf(System.currentTimeMillis());
@@ -34,6 +35,7 @@ public abstract class YaMailAbstract {
     public static WebDriver getDriver() {
         if (driver == null) {
             setDriver();
+//            setDriverCapabilities();
         }
         return driver;
     }
@@ -48,6 +50,29 @@ public abstract class YaMailAbstract {
         System.setProperty("webdriver.chrome.driver", "C:\\Data\\For_grid\\chromedriver.exe");
         driver = new ChromeDriver();
     }
+
+    private static void setDriverCapabilities() {
+
+
+//         System.setProperty("webdriver.ie.driver", "C:\\Data\\For_grid\\IEDriverServer.exe");
+//         DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+//
+		 System.setProperty("webdriver.gecko.driver", "/media/share/geckodriver");
+		 DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+        capabilities.setVersion("0.14.0");
+
+//        System.setProperty("webdriver.chrome.driver", "C:\\Data\\For_grid\\chromedriver.exe");
+//        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+
+//        capabilities.setPlatform(Platform.WINDOWS);
+        capabilities.setPlatform(Platform.LINUX);
+        try {
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void highlightElement(WebDriver driver, WebElement element)
     {
         String bg = element.getCssValue("backgroundColor");

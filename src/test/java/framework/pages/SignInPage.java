@@ -46,7 +46,9 @@ public class SignInPage extends YaMailAbstract {
         signInBtn.click();
         logger.info("Login is in progress...");
 
-        return new InboxMailPage(getDriver(), logger);
+        InboxMailPage object = InboxMailPage.getInstance();
+
+        return object;
     }
 
     public boolean checkThatExitTrue(){

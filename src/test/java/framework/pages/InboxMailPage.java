@@ -30,8 +30,14 @@ public class InboxMailPage extends YaMailAbstract {
     @FindBy (xpath = "//div[@data-params='source=toolbar'][19]")
     WebElement elementForContexClick;
 
-    public InboxMailPage(WebDriver driver, Logger logger){
+    private static InboxMailPage instance = new InboxMailPage(driver, logger);
+
+    private InboxMailPage(WebDriver driver, Logger logger){
         super(driver, logger);
+    }
+
+    public static InboxMailPage getInstance(){
+        return instance;
     }
 
     public CreateNewMailPage createNewMail() throws InterruptedException {
