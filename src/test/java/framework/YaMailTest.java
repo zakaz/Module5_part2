@@ -41,6 +41,10 @@ public class YaMailTest {
     public void loginToYaMail() {
         logger = Logger.getLogger("Test-1. Login to Mail.Yandex account");
 
+        FactoryProcessor factoryProcessor = new FactoryProcessor();
+        JustForInformation information = factoryProcessor.getPage("MAIN");
+        information.giveInfoOnWhichPageWeAre();
+
         // Login via user-defined method
         new SignInPage(driver, logger).loginToYaMail(new User());
 
@@ -97,6 +101,11 @@ public class YaMailTest {
     @Test(dependsOnMethods = "checkLetterInSentFolder", description = "Exit and check that exit true")
     public void exitAndCheckThatExitDone(){
         logger = Logger.getLogger("Test-7. Exit and check that exit true");
+
+        FactoryProcessor factoryProcessor = new FactoryProcessor();
+        JustForInformation information = factoryProcessor.getPage("SENT");
+        information.giveInfoOnWhichPageWeAre();
+
         new SentFolderPage(driver, logger).logOut();
         Assert.assertTrue(new SignInPage(driver, logger).checkThatExitTrue(), "Can't check that exit was made correctly");
         logger.info("LogOut done successfully!");

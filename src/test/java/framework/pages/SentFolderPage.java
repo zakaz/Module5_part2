@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * Created by Zakir_Mustafin on 2/4/2017.
  */
-public class SentFolderPage extends YaMailAbstract {
+public class SentFolderPage extends YaMailAbstract implements JustForInformation {
 
     private By subjectElement;
     private WebDriverWait wait;
@@ -29,6 +29,10 @@ public class SentFolderPage extends YaMailAbstract {
     WebElement clickOnExitButton;
 
     public SentFolderPage(WebDriver driver, Logger logger) {
+        super(driver, logger);
+    }
+
+    public SentFolderPage() {
         super(driver, logger);
     }
 
@@ -50,4 +54,7 @@ public class SentFolderPage extends YaMailAbstract {
         logger.info("Exit button clicked");
     }
 
+    public void giveInfoOnWhichPageWeAre() {
+        System.out.println("We are in SENT FOLDER page!");
+    }
 }

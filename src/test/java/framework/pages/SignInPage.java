@@ -10,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
 /**
  * Created by Zakir_Mustafin on 2/3/2017.
  */
-public class SignInPage extends YaMailAbstract {
+public class SignInPage extends YaMailAbstract implements JustForInformation{
 
     @FindBy(xpath = "//input[@name='login']")
     private WebElement loginInput;
@@ -28,6 +28,10 @@ public class SignInPage extends YaMailAbstract {
 
     public SignInPage(WebDriver driver, Logger logger) {
         super (driver, logger);
+    }
+
+    public SignInPage() {
+        super(driver, logger);
     }
 
     public InboxMailPage loginToYaMail(User user) {
@@ -55,4 +59,7 @@ public class SignInPage extends YaMailAbstract {
         return checkThatThisElementPresented.isDisplayed();
     }
 
+    public void giveInfoOnWhichPageWeAre() {
+        System.out.println("We Are on the MAIN LOGIN page!");
+    }
 }

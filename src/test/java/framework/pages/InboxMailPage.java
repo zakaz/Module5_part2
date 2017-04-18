@@ -70,6 +70,4 @@ public class InboxMailPage extends YaMailAbstract {
         logger.info("Checking that '"+ wordInboxInMailbox +"' is Displayed");
         return wordInboxInMailbox.isDisplayed();
     }
-
-
 }
